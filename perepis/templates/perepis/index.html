@@ -1,0 +1,236 @@
+{% extends 'perepis/base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block menu %}
+    <!-- ***** Меню начало ***** -->
+    <ul class="nav">
+        <li class="submenu">
+                <li><a href="#welcome">Начальная страница</a></li>
+                <li><a href="#features">Особенности</a></li>
+                <li><a href="#testimonials">Рекомендации</a></li>
+                <li><a href="{% url 'write_review' %}">Написать отзывы</a></li>
+                <li><a href="#" class="btn-nav-line"><span>Войти</span></a></li>
+        </li>
+    </ul>
+    <!-- ***** Меню конец ***** -->
+{% endblock %}
+
+{% block base_info %}
+<div class="row">
+    <div class="col-lg-5 col-md-12 col-sm-12">
+        <h1>Простая онлайн-система переписи населения</h1>
+        <p>В отличие от традиционных систем записи, которые требуют несколько месяцев изучения и являются дорогостоящими. Перепись населения АдельПродакшен занимает всего 10 минут.</p>
+        <div class="email-box">
+            <div class="input">
+                <input type="email" placeholder="Напишите ваш Email">
+                <button>Регистрация</button>
+            </div>
+            <span>*Мы не имеем право пользоватся вашими личными данными</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<!-- ***** Конец области заголовка ***** -->
+
+	<!-- ***** Особенности Малый Старт ***** -->
+	<section class="section white padding-bottom-90" id="features">
+
+		<div class="bg-bottom"></div>
+		<div class="container">
+			<!-- ***** Начало заголовка раздела ***** -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="center-heading">
+						<h2 class="section-title">Всего 4 минуты , и вы поможете 1 миллионуу</h2>
+					</div>
+				</div>
+				<div class="offset-lg-3 col-lg-6">
+					<div class="center-text">
+						<p>Отличный способ завлечь ваше внимание</p>
+					</div>
+				</div>
+			</div>
+			<!-- ***** Конец заголовка раздела ***** -->
+
+			<div class="row">
+				<!-- ***** Особенности Запуска Небольшого элемента ***** -->
+				<div class="col-lg-3 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.2s">
+					<a href="#" class="features-small-item">
+						<div class="icon">
+							<i class="fa fa-user-circle"></i>
+						</div>
+						<h5 class="features-title">Отчетность в 1 клик</h5>
+						<p>В два клика все таки.</p>
+						<div class="button">
+							<i class="fa fa-check"></i>
+						</div>
+					</a>
+				</div>
+				<!-- ***** Особенности Конец Небольшого Предмета ***** -->
+
+				<!-- ***** Особенности Запуска Небольшого элемента ***** -->
+				<div class="col-lg-3 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.4s">
+					<a href="#" class="features-small-item active">
+						<div class="icon">
+							<i class="fa fa-eercast"></i>
+						</div>
+						<h5 class="features-title">Твой успех в наших руках</h5>
+						<p>Статистика всей России в одном месте.</p>
+						<div class="button">
+							<i class="fa fa-check"></i>
+						</div>
+					</a>
+				</div>
+				<!-- ***** Особенности Конец Небольшого Предмета ***** -->
+
+				<!-- ***** Особенности Запуска Небольшого элемента ***** -->
+				<div class="col-lg-3 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.6s">
+					<a href="#" class="features-small-item">
+						<div class="icon">
+							<i class="fa fa-bar-chart"></i>
+						</div>
+						<h5 class="features-title">Запись данных</h5>
+						<p>Единая база всей информации для вашей безопасности.</p>
+						<div class="button">
+							<i class="fa fa-check"></i>
+						</div>
+					</a>
+				</div>
+				<!-- ***** Особенности Конец Небольшого Предмета ***** -->
+
+				<!-- ***** Особенности Запуска Небольшого элемента ***** -->
+				<div class="col-lg-3 col-md-6 col-sm-6 col-12" data-scroll-reveal="enter bottom move 50px over 0.6s after 0.8s">
+					<a href="#" class="features-small-item">
+						<div class="icon">
+							<i class="fa fa-briefcase"></i>
+						</div>
+						<h5 class="features-title">Быстрые и безопасные</h5>
+						<p>Скорость и надежность это наше второе имя.</p>
+						<div class="button">
+							<i class="fa fa-check"></i>
+						</div>
+					</a>
+				</div>
+				<!-- ***** Особенности Конец Небольшого Предмета ***** -->
+			</div>
+		</div>
+	</section>
+	<!-- ***** Особенности Малый Конец ***** -->
+
+
+	<!-- ***** Особенности Большой Старт товара ***** -->
+	<section class="section padding-bottom-100">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12 align-self-center mobile-bottom-fix"  data-scroll-reveal="enter right move 30px over 0.6s after 0.3s">
+					<img src="{% static 'perepis/img/photos/features/blue-1.png' %}" class="img-fluid float-left" alt="App">
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 align-self-center">
+					<div class="left-heading">
+						<h2 class="section-title">Почему именно мы?</h2>
+					</div>
+					<div class="left-text">
+						<p>Перепись населения - лучшая платформа, которая когда-либо радовала всех, кто заинтересован в развитии и помощи городу.</p>
+						<ul>
+							<li>Ваши данные всегда в безопасности</li>
+							<li>Большой выбор</li>
+							<li>---</li>
+							<li>...</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ***** Особенности Большой Конец Элемента ***** -->
+
+
+	<!-- ***** Запуск параллакса API ***** -->
+	<section class="parallax" data-image="{% static 'perepis/img/photos/parallax.jpg' %}">
+		<div class="parallax-content">
+			<div class="container">
+				<div class="row">
+					<div class="offset-lg-2 col-lg-8">
+						<div class="info">
+							<p>Интересно и полезно</p>
+						</div>
+					</div>
+				</div>
+
+				<!-- ***** Запуск кнопок API и SDK ***** -->
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-12 api-btn-content">
+						<a href="#" class="btn-api">
+							<i class="fa fa-calendar-o"></i>
+							<span>Календарь</span>
+						</a>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12 api-btn-content">
+						<a href="#" class="btn-api">
+							<i class="fa fa-vk"></i>
+							<span>Мы в ВКонтакте</span>
+						</a>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12 api-btn-content">
+						<a href="#" class="btn-api">
+							<i class="fa fa-instagram"></i>
+							<span>Мы в Инстаграме</span>
+						</a>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-12 api-btn-content">
+						<a href="#" class="btn-api">
+							<i class="fa fa-whatsapp"></i>
+							<span>Мы в Whatsapp</span>
+						</a>
+					</div>
+				</div>
+				<!-- ***** Конец кнопок API и SDK ***** -->
+			</div>
+		</div>
+	</section>
+	<!-- ***** Конец параллакса ***** -->
+
+
+	<!-- ***** Отзывы Начало ***** -->
+	<section class="section padding-bottom-80" id="testimonials">
+		<div class="container">
+			<!-- ***** Начало заголовка раздела ***** -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="center-heading">
+						<h2 class="section-title">Рекомендации</h2>
+					</div>
+				</div>
+				<div class="offset-lg-3 col-lg-6">
+					<div class="center-text">
+						<p>Последние отзывы наших пользователей</p>
+					</div>
+				</div>
+			</div>
+			<!-- ***** Конец заголовка ***** -->
+
+			<div class="row testimonials-wrapper">
+                {% for user in reviews|slice:":6" %}
+                    <!-- ***** Начало пункта отзывов ***** -->
+                     <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="testimonials-item">
+                            <div class="user">
+                                <img src="{{ user.avatar }}" alt="">
+                            </div>
+                            <div class="testimonials-content">
+                                <h3 class="user-name">{{ user.username }}</h3>
+                                <span>{{ user.role }}</span>
+                                <div class="txt">
+                                    <p>{{ user.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				    <!-- ***** Конец пункта отзыва ***** -->
+                {% endfor %}
+{% endblock %}

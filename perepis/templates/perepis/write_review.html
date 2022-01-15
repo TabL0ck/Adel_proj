@@ -1,0 +1,38 @@
+{% extends 'perepis/base.html' %}
+{% load static %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block menu %}
+    <!-- ***** Меню начало ***** -->
+    <ul class="nav">
+        <li class="submenu">
+                <li><a href="#welcome">Начальная страница</a></li>
+                <li><a href="#features">Особенности</a></li>
+                <li><a href="#testimonials">Рекомендации</a></li>
+                <li><a href="{% url 'write_review' %}">Написать отзывы</a></li>
+                <li><a href="#" class="btn-nav-line"><span>Войти</span></a></li>
+        </li>
+    </ul>
+    <!-- ***** Меню конец ***** -->
+{% endblock %}
+
+{% block base_info %}
+
+{% endblock%}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <br><br><br><br>
+    {{ form.username }}<br>
+    {{ form.role }}<br>
+    {{ form.text }}<br>
+    <span>{{ error }}</span>
+    <div class="email-box">
+        <div class="input">
+            <button class="btn btn-success" type="submit">Отправить</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock %}</title>
+	<meta name="author" content="tempload"/>
+
+	<!-- Значок -->
+    <link rel="icon" type="image/png" href="{% static 'perepis/img/favicon/favicon.png' %}" />
+
+	<!-- Плагины -->
+	<link href="{% static 'perepis/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'perepis/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+	<link href="{% static 'perepis/css/magnific-popup.css' %}" rel="stylesheet" type="text/css">
+
+	<!-- Кастомный CSS -->
+	<link href="{% static 'perepis/css/blue.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body style="font-family:Arial, Verdana, sans-serif">
+
+	<!-- ***** Запуск предварительного загрузчика ***** -->
+	<div class="preloader-wrapper">
+		<div class="loader">
+			<div class="loader-inner"></div>
+		</div>
+	</div>
+	<!-- ***** Конец предварительного загрузчика ***** -->
+
+	<!-- ***** Начало области заголовка ***** -->
+	<header class="header-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav class="main-nav">
+						<!-- ***** Начало логотипа ***** -->
+						<a href="{% url 'index' %}" class="logo">
+							<img src="{% static 'perepis/img/logo-blue.png' %}" alt="Webmania"/>
+						</a>
+						<!-- ***** Конец логотипа ***** -->
+                        {% block menu %}{% endblock %}
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+
+		<!-- ***** Начало зоны приветствия ***** -->
+		<div class="welcome-area" id="welcome">
+			<!-- ***** Начало фонового изображения заголовка ***** -->
+			<div class="right-bg">
+				<img src="{% static 'perepis/img/photos/header.jpg' %}" class="img-fluid float-right" alt="">
+			</div>
+			<!-- ***** Конец фонового изображения заголовка ***** -->
+	
+			<div class="header-bg">
+				<img src="{% static 'perepis/img/header-bg.svg' %}" class="img-fluid" alt="">
+			</div>
+	
+			<!-- ***** Начало текста заголовка ***** -->
+			<div class="header-text">
+				<div class="container">
+					{% block base_info %}{% endblock %}
+				</div>
+			</div>
+			<!-- ***** Конец текста заголовка ***** -->
+	
+		</div>
+		<!-- ***** Конец Зоны приветствия ***** -->
+	
+    {% block content %}{% endblock %}
+
+
+	<!-- ***** Footer Start ***** -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-5 col-md-12 col-sm-12">
+					<img src="{% static 'perepis/img/logo-blue.png' %}" class="logo" alt="">
+					<div class="text">Простая онлайн-система переписи населения</div>
+				</div>
+
+				<div class="col-lg-3 col-md-4 col-sm-12">
+					<h5>Наши Контакты</h5>
+					<div class="address">
+						<p>Университетская 33<br>г. Севастополь </p>
+						<p>Телефон: +7978 222 2222</p>
+						<p><span>E-Mail:</span><a href="#">adel-379@rambler.ru</a></p>
+						<ul class="social">
+							<li><a href="#"><i class="fa fa-vk"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<p class="copyright">© 2022 Перепись Населения.</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- ***** Footer End ***** -->
+
+
+
+	<!-- jQuery -->
+	<script src="{% static 'perepis/js/jquery-3.6.0.min.js' %}"></script>
+
+	<!-- Bootstrap -->
+	<script src="{% static 'perepis/js/popper.js' %}"></script>
+	<script src="{% static 'perepis/js/bootstrap.min.js' %}"></script>
+
+	<!-- Plugins -->
+	<script src="{% static 'perepis/js/scrollreveal.min.js' %}"></script>
+	<script src="{% static 'perepis/js/parallax.min.js' %}"></script>
+	<script src="{% static 'perepis/js/waypoints.min.js' %}"></script>
+	<script src="{% static 'perepis/js/jquery.counterup.min.js' %}"></script>
+	<script src="{% static 'perepis/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'perepis/js/imgfix.min.js' %}"></script>
+
+	<!-- Global Init -->
+	<script src="{% static 'perepis/js/custom.js' %}"></script>
+</body>
+</html>
