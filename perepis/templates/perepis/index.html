@@ -20,15 +20,20 @@
 {% block base_info %}
 <div class="row">
     <div class="col-lg-5 col-md-12 col-sm-12">
-        <h1>Простая онлайн-система переписи населения</h1>
-        <p>В отличие от традиционных систем записи, которые требуют несколько месяцев изучения и являются дорогостоящими. Перепись населения АдельПродакшен занимает всего 10 минут.</p>
-        <div class="email-box">
-            <div class="input">
-                <input type="email" placeholder="Напишите ваш Email">
-                <button>Регистрация</button>
-            </div>
-            <span>*Мы не имеем право пользоватся вашими личными данными</span>
-        </div>
+		<form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+			<h1>Простая онлайн-система переписи населения</h1>
+			<p>В отличие от традиционных систем записи, которые требуют несколько месяцев изучения и являются дорогостоящими. Перепись населения АдельПродакшен занимает всего 10 минут.</p>
+			<div class="email-box">
+				<div class="input">
+					
+					{{ form.email }}
+					<button type="submit" >Регистрация</button>
+				</div>
+				<span>*Мы не имеем право пользоватся вашими личными данными</span>
+			</div>
+        </form>
+
     </div>
 </div>
 {% endblock %}
@@ -220,7 +225,7 @@
                      <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="testimonials-item">
                             <div class="user">
-                                <img src="{{ user.avatar }}" alt="">
+                                <img src="{{ user.avatar.url }}" alt="">
                             </div>
                             <div class="testimonials-content">
                                 <h3 class="user-name">{{ user.username }}</h3>
