@@ -1,8 +1,10 @@
+<!-- Подклкючение базового html дока -->
 {% extends 'perepis/base.html' %}
+<!-- Подключение статики -->
 {% load static %}
-
+<!-- Ввод названия вкладки title передается в views.py -->
 {% block title %} {{ title }} {% endblock %}
-
+<!-- Менюшка сайта -->
 {% block menu %}
     <!-- ***** Меню начало ***** -->
     <ul class="nav">
@@ -16,7 +18,7 @@
     </ul>
     <!-- ***** Меню конец ***** -->
 {% endblock %}
-
+<!-- Основной контент сайтека -->
 {% block base_info %}
 <div class="row">
     <div class="col-lg-5 col-md-12 col-sm-12">
@@ -34,7 +36,7 @@
     </div>
 </div>
 {% endblock%}
-
+<!-- Если то основной, то это что? А ну это то что чуть пониже -->
 {% block content %}
 
 {% endblock %}

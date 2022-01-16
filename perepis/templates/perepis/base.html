@@ -1,11 +1,13 @@
+<!-- Подключение статики -->
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="rus">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{% block title %}{% endblock %}</title>
+	<title>{% block title %}<!-- Название вкладки -->{% endblock %}</title>
 	<meta name="author" content="tempload"/>
 
 	<!-- Значок -->
@@ -40,7 +42,7 @@
 							<img src="{% static 'perepis/img/logo-blue.png' %}" alt="Webmania"/>
 						</a>
 						<!-- ***** Конец логотипа ***** -->
-                        {% block menu %}{% endblock %}
+                        {% block menu %} <!-- Добавление меню --> {% endblock %}
 					</nav>
 				</div>
 			</div>
@@ -62,7 +64,7 @@
 			<!-- ***** Начало текста заголовка ***** -->
 			<div class="header-text">
 				<div class="container">
-					{% block base_info %}{% endblock %}
+					{% block base_info %} <!-- Добавление блока основного контета сайтека --> {% endblock %}
 				</div>
 			</div>
 			<!-- ***** Конец текста заголовка ***** -->
@@ -70,7 +72,7 @@
 		</div>
 		<!-- ***** Конец Зоны приветствия ***** -->
 	
-    {% block content %}{% endblock %}
+    {% block content %}<!-- Добавление CUMтента -->{% endblock %}
 
 
 	<!-- ***** Footer Start ***** -->

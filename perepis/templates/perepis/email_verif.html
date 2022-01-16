@@ -1,14 +1,19 @@
+<!-- Подклкючение базового html дока -->
 {% extends 'perepis/base.html' %}
+<!-- Подключение статики -->
 {% load static %}
 
+<!-- Ввод названия вкладки title передается в views.py -->
 {% block title %} {{ title }} {% endblock %}
 
+<!-- Основной контент сайтека -->
 {% block base_info %}
 
 	<h1>Типа тут регаешься</h1>
 
 {% endblock %}
 
+<!-- Если то основной, то это что? А ну это то что чуть пониже -->
 {% block content %}
 
 {% endblock %}
