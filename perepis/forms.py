@@ -1,5 +1,6 @@
-from .models import Reviews, EmailAddr
+from .models import Reviews, EmailAddr, ProfileUser
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm, TextInput, Textarea, EmailInput
 
 # Форма отзывов 
@@ -10,20 +11,13 @@ class ReviewsForm(ModelForm):
         # Создание объекта модели
         model = Reviews
         # Поля, которые будут в форме
-        fields = ['username', 'role', 'text', 'avatar']
+        fields = ['text']
         # Украшение для полей формы
         widgets = {
-            'username' : TextInput(attrs={
-                'class' : 'form-control',
-                'placeholder' : 'Имя пользователя',
-            }),
-            'role' : TextInput(attrs={
-                'class' : 'form-control',
-                'placeholder' : 'Роль пользователя',
-            }),
-            'text' : Textarea(attrs={
+                'text' : Textarea(attrs={
                 'class' : 'form-control',
                 'placeholder' : 'Текст отзыва',
+                'name' : 'text'
             })
         }
 
@@ -38,6 +32,20 @@ class EmailReg(ModelForm):
         # Украшение для полей формы
         widgets = {
             'email' : EmailInput(attrs={
-                'placeholder' : 'Напишите ваш E-mail'
+                'placeholder' : 'Напишите ваш E-mail',
+                'name' : 'email'
             })
         }
+
+class ProfileUser_reg(UserCreationForm):
+
+    class Meta:
+
+        model = ProfileUser
+        fields = ['email', 'username', 'role', 'age', 'city', 'avatar', 'first_name']
+
+class ProfileUser_login(UserCreationForm):  
+
+    class Meta:
+        model = ProfileUser
+        fields = ['username']

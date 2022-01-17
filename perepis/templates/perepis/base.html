@@ -49,29 +49,8 @@
 		</div>
 	</header>
 
-		<!-- ***** Начало зоны приветствия ***** -->
-		<div class="welcome-area" id="welcome">
-			<!-- ***** Начало фонового изображения заголовка ***** -->
-			<div class="right-bg">
-				<img src="{% static 'perepis/img/photos/header.jpg' %}" class="img-fluid float-right" alt="">
-			</div>
-			<!-- ***** Конец фонового изображения заголовка ***** -->
-	
-			<div class="header-bg">
-				<img src="{% static 'perepis/img/header-bg.svg' %}" class="img-fluid" alt="">
-			</div>
-	
-			<!-- ***** Начало текста заголовка ***** -->
-			<div class="header-text">
-				<div class="container">
-					{% block base_info %} <!-- Добавление блока основного контета сайтека --> {% endblock %}
-				</div>
-			</div>
-			<!-- ***** Конец текста заголовка ***** -->
-	
-		</div>
-		<!-- ***** Конец Зоны приветствия ***** -->
-	
+	{% block base_info %} <!-- Добавление блока основного контета сайтека --> {% endblock %}
+
     {% block content %}<!-- Добавление CUMтента -->{% endblock %}
 
 

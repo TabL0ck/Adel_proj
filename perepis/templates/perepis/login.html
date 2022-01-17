@@ -14,7 +14,12 @@
                 <li><a href="#features">Особенности</a></li>
                 <li><a href="#testimonials">Рекомендации</a></li>
                 <li><a href="{% url 'write_review' %}">Написать отзывы</a></li>
-				<li><a href="{% url 'login' %}" class="btn-nav-line"><span>Войти</span></a></li>
+                {% if auth %}
+                	<li><a href="{% url 'lk' %}" class="btn-nav-line"><span>Личный кабинет</span></a></li>
+                    <li><a href="{% url 'logout' %}" class="btn-nav-line"><span>Выйти</span></a></li>
+				{% else %}
+				    <li><a href="{% url 'login' %}" class="btn-nav-line"><span>Войти</span></a></li>
+				{% endif %}
         </li>
     </ul>
     <!-- ***** Меню конец ***** -->
@@ -47,7 +52,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-5 col-md-12 col-sm-12">
-				<h1>Регистрация</h1>
+				<h1>Авторизация</h1>
 				<form method="post" action="" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="email-box">

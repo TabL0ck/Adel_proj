@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 from .module.img_crop import crop_img_to_review
 from .module.email_bot import registration_email
+from .module.city_conf import CHOICES
 
 # Функция возвращающая полный путь к файлу с аватаркой
 def user_directory_path(instance,filename):
@@ -12,9 +13,9 @@ def user_directory_path(instance,filename):
 class Reviews(models.Model):
 
     # Ник юзера, который оставил отзыв
-    username = models.CharField('Имя пользователя', max_length=32)
+    username = models.CharField('Имя пользователя', max_length=32, default='a')
     # Роль юзера, который оставил отзыв
-    role = models.CharField('Роль пользователя', max_length=64)
+    role = models.CharField('Роль пользователя', max_length=64, default='a')
     # Текст отзыва
     text = models.TextField('Текст отзыва')
     # Аватарка юзера, который оставил отзыв
@@ -40,11 +41,19 @@ class Reviews(models.Model):
         # Множественное число
         verbose_name_plural = 'Rewiews'
 
+    def create_review(self,username,role,text,avatar):
+        self.username = username
+        self.role = role
+        self.text = text
+        print(self.avatar, avatar)
+        self.avatar = avatar
+
 # Модель Email адрессов
 class EmailAddr(models.Model):
 
     # Email, на который придет письмо
     email = models.EmailField('E-mail адресс')
+    csrfmiddlewaretoken = models.CharField('CSRF токен', max_length=250, default='a')
 
     # Вот именно так будет выводиться объект модели, при обращении к ней
     def __str__(self):
@@ -57,7 +66,7 @@ class EmailAddr(models.Model):
         # Сохранение данных в бд
         super().save()
         # Отправка письма с ссылкой на регистрацию
-        registration_email(self.email)
+        #registration_email(self.email, self.csrfmiddlewaretoken)
 
 
     # Отображение в панели админа
@@ -66,3 +75,17 @@ class EmailAddr(models.Model):
         verbose_name = 'Email'
         # Множественное число
         verbose_name_plural = 'Emails'
+
+class ProfileUser(User):
+
+
+    avatar = models.ImageField('Аватарка', default='perepis/no_avatar.png',upload_to=user_directory_path)
+    role = models.CharField('Образование', max_length=64 , default='Бомж')
+    age = models.PositiveIntegerField('Возраст', default=16)
+    city = models.CharField(default='Не указан', max_length=300)
+    filename = None
+
+    # Запись данных в базу данных, реализуется в основном здесь
+    def save(self):
+
+        super().save()

@@ -13,32 +13,57 @@
                 <li><a href="#features">Особенности</a></li>
                 <li><a href="#testimonials">Рекомендации</a></li>
                 <li><a href="{% url 'write_review' %}">Написать отзывы</a></li>
-                <li><a href="#" class="btn-nav-line"><span>Войти</span></a></li>
+				{% if auth %}
+                	<li><a href="{% url 'lk' %}" class="btn-nav-line"><span>Личный кабинет</span></a></li>
+					<li><a href="{% url 'logout' %}" class="btn-nav-line"><span>Выйти</span></a></li>
+				{% else %}
+				<li><a href="{% url 'login' %}" class="btn-nav-line"><span>Войти</span></a></li>
+				{% endif %}
         </li>
     </ul>
     <!-- ***** Меню конец ***** -->
 {% endblock %}
 <!-- Основной контент сайтека -->
 {% block base_info %}
-<div class="row">
-    <div class="col-lg-5 col-md-12 col-sm-12">
-		<form method="post" action="" enctype="multipart/form-data">
-			<!-- csrf токен, хз зачем, но он нужен, без него не сработает -->
-            {% csrf_token %}
-			<h1>Простая онлайн-система переписи населения</h1>
-			<p>В отличие от традиционных систем записи, которые требуют несколько месяцев изучения и являются дорогостоящими. Перепись населения АдельПродакшен занимает всего 10 минут.</p>
-			<div class="email-box">
-				<div class="input">
-					<!-- Форма ввода email'a -->
-					{{ form.email }}
-					<button type="submit" >Регистрация</button>
-				</div>
-				<span>*Мы не имеем право пользоватся вашими личными данными</span>
-			</div>
-        </form>
 
-    </div>
-</div>
+	<!-- ***** Начало зоны приветствия ***** -->
+	<div class="welcome-area" id="welcome">
+		<!-- ***** Начало фонового изображения заголовка ***** -->
+		<div class="right-bg">
+			<img src="{% static 'perepis/img/photos/header.jpg' %}" class="img-fluid float-right" alt="">
+		</div>
+		<!-- ***** Конец фонового изображения заголовка ***** -->
+
+		<div class="header-bg">
+			<img src="{% static 'perepis/img/header-bg.svg' %}" class="img-fluid" alt="">
+		</div>
+
+		<!-- ***** Начало текста заголовка ***** -->
+		<div class="header-text">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-md-12 col-sm-12">
+						<form method="get" action="{% url 'email_verif' %}" enctype="multipart/form-data">
+							<!-- csrf токен, хз зачем, но он нужен, без него не сработает -->
+							{% csrf_token %}
+							<h1>Простая онлайн-система переписи населения</h1>
+							<p>В отличие от традиционных систем записи, которые требуют несколько месяцев изучения и являются дорогостоящими. Перепись населения АдельПродакшен занимает всего 10 минут.</p>
+							<div class="email-box">
+								<div class="input">
+									<!-- Форма ввода email'a -->
+									{{ form.email }}
+									<button type="submit" >Регистрация</button>
+								</div>
+								<span>*Мы не имеем право пользоватся вашими личными данными</span>
+							</div>
+						</form>
+					</div>
+				</div>	
+			</div>	
+		</div>
+		<!-- ***** Конец текста заголовка ***** -->
+	</div>
+	<!-- ***** Конец Зоны приветствия ***** -->
 {% endblock %}
 <!-- Если то основной, то это что? А ну это то что чуть пониже -->
 {% block content %}

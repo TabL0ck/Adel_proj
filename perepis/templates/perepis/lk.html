@@ -1,0 +1,238 @@
+<!-- Подклкючение базового html дока -->
+{% extends 'perepis/base.html' %}
+<!-- Подключение статики -->
+{% load static %}
+<!-- Ввод названия вкладки title передается в views.py -->
+{% block title %} {{ title }} {% endblock %}
+<!-- Менюшка сайта -->
+{% block menu %}
+   <!-- ***** Меню ***** -->
+   <ul class="nav">
+        <li><a href="{% url 'index' %}">Начальная страница</a></li>
+        <li><a href="{% url 'index' %}">Особенности</a></li>
+        <li><a href="{% url 'index' %}">Рекомендации</a></li>
+        {% if auth %}
+        	<li><a href="{% url 'lk' %}" class="btn-nav-line"><span>Личный кабинет</span></a></li>
+			<li><a href="{% url 'logout' %}" class="btn-nav-line"><span>Выйти</span></a></li>
+		{% else %}
+			<li><a href="{% url 'login' %}" class="btn-nav-line"><span>Войти</span></a></li>
+		{% endif %}
+    </ul>
+    <!-- ***** Меню ***** -->
+{% endblock %}
+{% block base_info %}
+	<section class="page">
+		<!-- ***** Начало верхней части страницы ***** -->
+		<div class="cover" data-image="{% static 'perepis/img/photos/parallax-counter.jpg' %}">
+			<div class="page-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<h1>Личный кабинет</h1>
+						</div>
+						<div class="col-lg-12">
+							<ol class="breadcrumb">
+								<li><a href="{% url 'index' %}">Начальная страница</a></li>
+								<li class="active">Личный кабинет</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Верхний конец Страницы ***** -->
+{% endblock %}
+{% block content %}  
+		<!-- ***** Начало содержимого страницы ***** -->
+		<div class="page-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="contact">
+							<div class="map-wrapper">
+								<!-- ***** Запуск карт Google ***** -->
+
+<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ae44df7520c8e802ccf0945e954d6fdfb128445d76bf9a5fc9816ef0f9d7feebc&amp;width=1280&amp;height=720&amp;lang=ru_RU&amp;scroll=true"></script>
+								<div class="map-canvas"
+									data-zoom="12"
+									data-lat="-37.811085"
+									data-lng="144.955631"
+									data-type="roadmap"
+									data-hue="#ffc400"
+									data-icon-path="{% static 'perepis/img/marker-blue.png' %}"
+									data-content="Университетская 33<br><br>">
+								</div>
+
+								<!-- ***** Конец карт Google ***** -->
+							</div>
+							<div class="contact-info">
+								<div class="item">
+									<i class="fa fa-location-arrow"></i>
+									<div class="txt">
+										<span>Университетская 33<br>г. Севастополь</span>
+									</div>
+								</div>
+								<div class="item">
+									<i class="fa fa-phone"></i>
+									<div class="txt">
+										<span>+7 (978)222-22 22<br>+7 (978)222-22 21</span>
+									</div>
+								</div>
+								<div class="item">
+									<i class="fa fa-envelope"></i>
+									<div class="txt">
+										<span><a href="#">support@adelyarova.com</a></span>
+									</div>
+								</div>
+								<ul class="social">
+									<li><a href="#"><i class="fa fa-vk"></i></a></li>
+									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+									<li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="contact-bottom">
+							<div class="row">
+								<!-- ***** Текст контейнер ***** -->
+								<div class="col-lg-4 col-md-6 col-sm-12">
+									<h5 class="margin-bottom-30">Введите свои данные..</h5>
+									<div class="contact-text">
+										<p>Данная программа , будет вычислять похожих зарегестрированных пользователей </p>
+									</div>
+								</div>
+								<!-- ***** текст контейнер ***** -->
+
+								<!-- ***** Контактная форма ***** -->
+								<div class="col-lg-8 col-md-6 col-sm-12">
+									<div class="contact-form">
+										<div class="row">
+											<form action="", method="post">
+												{% csrf_token %}
+												<div class="col-lg-6 col-md-12 col-sm-12">
+													<input type="text" placeholder="Возраст" name="age">
+												</div>
+												<div class="col-lg-6 col-md-12 col-sm-12">
+													<input type="text" placeholder="Образование" name="role">
+												</div>
+												<div class="col-lg-6 col-md-12 col-sm-12">
+													<input type="text" placeholder="Место жительства" name="city">
+												</div>
+												<div class="col-lg-12">
+													<button class="btn-primary-line" type="submit">Поиск</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- ***** Contact Form End ***** -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Page Content End ***** -->
+	</section>
+	<div class="container">
+		<!-- ***** Начало заголовка раздела ***** -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="center-heading">
+					<h2 class="section-title">Люди, проживающие в указанном городе</h2>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Конец заголовка ***** -->
+
+		<div class="row testimonials-wrapper">
+			<!-- Цикл вывода отзывов slice":6" означает что берется только первые 6 записей -->
+			{% for user in city %}
+				<!-- ***** Начало пункта отзывов ***** -->
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="testimonials-item">
+						<div class="user">
+							<img src="{{ user.avatar.url }}" alt="">
+						</div>
+						<div class="testimonials-content">
+							<h3 class="user-name">{{ user.username }}</h3>
+							<span>{{ user.role }}</span>
+							<div class="txt">
+								<p>{{ user.email }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Конец пункта отзыва ***** -->
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<!-- ***** Начало заголовка раздела ***** -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="center-heading">
+					<h2 class="section-title">Люди, имеющие указанное образование</h2>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Конец заголовка ***** -->
+
+		<div class="row testimonials-wrapper">
+			<!-- Цикл вывода отзывов slice":6" означает что берется только первые 6 записей -->
+			{% for user in role %}
+				<!-- ***** Начало пункта отзывов ***** -->
+					<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="testimonials-item">
+						<div class="user">
+							<img src="{{ user.avatar.url }}" alt="">
+						</div>
+						<div class="testimonials-content">
+							<h3 class="user-name">{{ user.username }}</h3>
+							<span>{{ user.role }}</span>
+							<div class="txt">
+								<p>{{ user.email }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Конец пункта отзыва ***** -->
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<!-- ***** Начало заголовка раздела ***** -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="center-heading">
+					<h2 class="section-title">Люди указанного возраста</h2>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Конец заголовка ***** -->
+
+		<div class="row testimonials-wrapper">
+			<!-- Цикл вывода отзывов slice":6" означает что берется только первые 6 записей -->
+			{% for user in age %}
+				<!-- ***** Начало пункта отзывов ***** -->
+					<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="testimonials-item">
+						<div class="user">
+							<img src="{{ user.avatar.url }}" alt="">
+						</div>
+						<div class="testimonials-content">
+							<h3 class="user-name">{{ user.username }}</h3>
+							<span>{{ user.role }}</span>
+							<div class="txt">
+								<p>{{ user.email }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Конец пункта отзыва ***** -->
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
