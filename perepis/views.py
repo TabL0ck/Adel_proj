@@ -160,13 +160,15 @@ def lk(request):
             role = ProfileUser.objects.all().filter(role=request.POST['role'])
         if request.POST['age'] != '':
             age = ProfileUser.objects.all().filter(age=request.POST['age'])
+        filter_all = ProfileUser.objects.all().filter(age=request.POST['age'], city=request.POST['city'], role=request.POST['role'])
 
         content = {
             'title': 'Личный кабинет',
             'auth' : request.user.is_authenticated,
             'city': city,
             'role': role,
-            'age': age
+            'age': age,
+            'filter_all': filter_all
         }
         return render(request, 'perepis/lk.html', content)
 

@@ -157,7 +157,7 @@
 							<img src="{{ user.avatar.url }}" alt="">
 						</div>
 						<div class="testimonials-content">
-							<h3 class="user-name">{{ user.username }}</h3>
+							<h3 class="user-name">{{ user.first_name }}</h3>
 							<span>{{ user.role }}</span>
 							<div class="txt">
 								<p>{{ user.email }}</p>
@@ -190,7 +190,7 @@
 							<img src="{{ user.avatar.url }}" alt="">
 						</div>
 						<div class="testimonials-content">
-							<h3 class="user-name">{{ user.username }}</h3>
+							<h3 class="user-name">{{ user.first_name }}</h3>
 							<span>{{ user.role }}</span>
 							<div class="txt">
 								<p>{{ user.email }}</p>
@@ -223,7 +223,40 @@
 							<img src="{{ user.avatar.url }}" alt="">
 						</div>
 						<div class="testimonials-content">
-							<h3 class="user-name">{{ user.username }}</h3>
+							<h3 class="user-name">{{ user.first_name }}</h3>
+							<span>{{ user.role }}</span>
+							<div class="txt">
+								<p>{{ user.email }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Конец пункта отзыва ***** -->
+			{% endfor %}
+		</div>
+	</div>
+	<div class="container">
+		<!-- ***** Начало заголовка раздела ***** -->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="center-heading">
+					<h2 class="section-title">Люди, подходящие под все критерии</h2>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Конец заголовка ***** -->
+
+		<div class="row testimonials-wrapper">
+			<!-- Цикл вывода отзывов slice":6" означает что берется только первые 6 записей -->
+			{% for user in filter_all %}
+				<!-- ***** Начало пункта отзывов ***** -->
+					<div class="col-lg-4 col-md-6 col-sm-12">
+					<div class="testimonials-item">
+						<div class="user">
+							<img src="{{ user.avatar.url }}" alt="">
+						</div>
+						<div class="testimonials-content">
+							<h3 class="user-name">{{ user.first_name }}</h3>
 							<span>{{ user.role }}</span>
 							<div class="txt">
 								<p>{{ user.email }}</p>
