@@ -39,12 +39,13 @@ class EmailAddr(models.Model):
         # Множественное число
         verbose_name_plural = 'Emails'
 
+
 class ProfileUser(User):
 
     avatar = models.ImageField('Аватарка', default='perepis/no_avatar.png',upload_to=user_directory_path)
-    role = models.CharField('Образование', max_length=64 , default='Бомж')
+    role = models.CharField('Образование', max_length=64 , default='Студент')
     age = models.PositiveIntegerField('Возраст', default=16)
-    city = models.CharField(default='Не указан', max_length=300)
+    city = models.CharField(default='Севастополь', max_length=300)
     filename = None
 
     # Запись данных в базу данных, реализуется в основном здесь

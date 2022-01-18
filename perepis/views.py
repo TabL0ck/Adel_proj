@@ -62,9 +62,8 @@ def write_review(request):
         if form.is_valid():
             # Сохранение формы в базе данных и редирект на index.html
             user_prof = ProfileUser.objects.get(username=request.user.username)
-            temp = Reviews.objects.create(text='a', user=user_prof)
+            temp = Reviews.objects.create(text=form.cleaned_data['text'], user=user_prof)
             temp.save()
-            print(user_prof.avatar)
             return redirect('index')
         else:
             # Вывод в консоль ошибки и добавлние ошибки в массив ошибок, да, да пока что это просто строка, поебать
