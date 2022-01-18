@@ -41,7 +41,7 @@ class ProfileUser_reg(UserCreationForm):
 
     class Meta:
 
-        model = ProfileUser
+        model = ProfileUser()
         fields = ['email', 'username', 'role', 'age', 'city', 'avatar', 'first_name']
 
 class ProfileUser_login(UserCreationForm):  

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User 
 from django.contrib import messages
 from django.http import HttpRequest
 from .models import Reviews, EmailAddr, ProfileUser
@@ -60,12 +61,10 @@ def write_review(request):
         # Проверка на валидность данных в форме
         if form.is_valid():
             # Сохранение формы в базе данных и редирект на index.html
-            temp = Reviews()
-            user_prof = ProfileUser(username=request.user.username)
-            
-            print(user_prof.city)
-            temp.create_review(user_prof.username, user_prof.role, request.POST['text'], user_prof.avatar)
+            user_prof = ProfileUser.objects.get(username=request.user.username)
+            temp = Reviews.objects.create(text='a', user=user_prof)
             temp.save()
+            print(user_prof.avatar)
             return redirect('index')
         else:
             # Вывод в консоль ошибки и добавлние ошибки в массив ошибок, да, да пока что это просто строка, поебать
