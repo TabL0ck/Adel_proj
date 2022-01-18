@@ -115,7 +115,7 @@
 				// Home Parallax
 				if($('.parallax').length){
 					$('.parallax').parallax({
-						imageSrc: 'assets/images/photos/parallax.jpg',
+						imageSrc: '../img/photos/parallax.jpg',
 						zIndex: '1'
 					});
 				}
@@ -123,7 +123,7 @@
 				// Home Parallax Counterup
 				if($('.parallax-counter').length){
 					$('.parallax-counter').parallax({
-						imageSrc: 'assets/images/photos/parallax-counter.jpg',
+						imageSrc: '../img/photos/parallax-counter.jpg',
 						zIndex: '1'
 					});
 				}

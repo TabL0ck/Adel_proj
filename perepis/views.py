@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
+from django.db.models import CharField
 from django.contrib import messages
 from django.http import HttpRequest
 from .models import Reviews, EmailAddr, ProfileUser
-from .forms import ReviewsForm, EmailReg, ProfileUser_reg, ProfileUser_login
+from .forms import ReviewsForm, EmailReg, EmailReg_csrf, ProfileUser_reg, ProfileUser_login
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
+from .module.email_bot import registration_email
 
 # Обработчик перехода на index.html
 def index(request):
@@ -20,16 +22,11 @@ def index(request):
         form = EmailReg(request.GET)
         # Проверка на валидность данных в форме
         if form.is_valid():
-            # Сохранение формы в базе данных и редирект на index.html
-            form.save()
-            CSRF_token_save = EmailAddr.objects.get(email=request.GET['email'])
-            #CSRF_token_save.csrfmiddlewaretoken = request.GET['csrfmiddlewaretoken']
-            #CSRF_token_save.save()
-            CSRF_token_save.delete(self)
+            # Отправка ссыкли с регистрацией
+            registration_email(form.cleaned_data['email'], csrfmiddlewaretoken=request.GET['csrfmiddlewaretoken'])
             return redirect('index')
         else:
             # Вывод в консоль ошибки и добавлние ошибки в массив ошибок, да, да пока что это просто строка, поебать
-            print(form.errors)
             error = 'Неверно заполнена форма'
     # Создание объекта формы, которая передасться в index.html
     form = EmailReg()
@@ -94,7 +91,6 @@ def email_verif(request):
                 return redirect('index')
             else:
                 # Вывод в консоль ошибки и добавлние ошибки в массив ошибок, да, да пока что это просто строка, поебать
-                print(form.errors)
                 error = 'Неверно заполнена форма'
 
 
@@ -152,10 +148,8 @@ def lk(request):
 
     if request.method == 'POST':
 
-        print(request.POST['city'], request.POST['age'], request.POST['role'])
         if request.POST['city'] != '':
             city = ProfileUser.objects.all().filter(city=request.POST['city'])
-            print(city)
         if request.POST['role'] != '':
             role = ProfileUser.objects.all().filter(role=request.POST['role'])
         if request.POST['age'] != '':

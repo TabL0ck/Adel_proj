@@ -29,7 +29,7 @@ class EmailAddr(models.Model):
         # Сохранение данных в бд
         super().save()
         # Отправка письма с ссылкой на регистрацию
-        #registration_email(self.email, self.csrfmiddlewaretoken)
+        registration_email(self.email, self.csrfmiddlewaretoken)
 
 
     # Отображение в панели админа

@@ -43,7 +43,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-5 col-md-12 col-sm-12">
-						<form method="get" action="{% url 'email_verif' %}" enctype="multipart/form-data">
+						<form method="get" action="{% url 'index' %}" enctype="multipart/form-data">
 							<!-- csrf токен, хз зачем, но он нужен, без него не сработает -->
 							{% csrf_token %}
 							<h1>Простая онлайн-система переписи населения</h1>

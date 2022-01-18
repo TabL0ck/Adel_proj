@@ -44,6 +44,12 @@ class ProfileUser_reg(UserCreationForm):
         model = ProfileUser
         fields = ['email', 'username', 'role', 'age', 'city', 'avatar', 'first_name']
 
+class EmailReg_csrf(ModelForm):
+
+    class Meta:
+        model = EmailAddr
+        fields = ['csrfmiddlewaretoken']
+
 class ProfileUser_login(UserCreationForm):  
 
     class Meta:
