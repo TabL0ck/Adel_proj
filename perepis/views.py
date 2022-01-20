@@ -9,12 +9,16 @@ from .forms import ReviewsForm, EmailReg, EmailReg_csrf, ProfileUser_reg, Profil
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from .module.email_bot import registration_email
+from django.core.serializers.json import DjangoJSONEncoder
+import json
 
 # Обработчик перехода на index.html
 def index(request):
 
     # Массив(пока что просто строка) ошибок
     error = ''
+
+    print(request.META.get('REMOTE_ADDR'))
 
     # Отслеживание передачи данных методом POST
     if request.method == 'GET':
@@ -39,7 +43,8 @@ def index(request):
         'title' : 'Перепись населения',
         'reviews' : reviews,
         'form' : form,
-        'auth' : request.user.is_authenticated
+        'auth' : request.user.is_authenticated,
+        'user_pk' : request.user.pk
     }
     # Рендеринг страницы index.html
     return render(request, 'perepis/index.html',content)
@@ -72,7 +77,8 @@ def write_review(request):
         'title' : 'Отзыв', 
         'form' : form,
         'error' : error,
-        'auth' : request.user.is_authenticated
+        'auth' : request.user.is_authenticated,
+        'user_pk' : request.user.pk
     }
     # Рендеринг страницы write_review.html
     return render(request, 'perepis/write_review.html', content)
@@ -98,6 +104,7 @@ def email_verif(request):
         form = ProfileUser_reg(initial={
             'email' : email
             })
+        form = ProfileUser_reg()
 
         # Словарь данных, которые передаються в email.verif.html
         content = {
@@ -119,12 +126,12 @@ def log_in(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
-        password = request.POST.get('password1')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect(f'{request.user.pk}/lk')
         else:
             messages.error(request, 'Username or password is incorrect')
     #auth_menu_bar(request, context)
@@ -137,46 +144,70 @@ def log_out(request):
     logout(request)
     return redirect('index')
 
-def lk(request):
+class lk(DetailView):
 
-    if not request.user.is_authenticated:
-        return redirect('login')
+    model= ProfileUser
+    template_name = 'perepis/lk.html'
+    context_object_name = 'profile'
 
-    city =[]
-    role =[]
-    age =[]
+class charts(DetailView):
 
-    if request.method == 'POST':
+    context_charts = {}
 
-        if request.POST['city'] != '':
-            city = ProfileUser.objects.all().filter(city=request.POST['city'])
-        if request.POST['role'] != '':
-            role = ProfileUser.objects.all().filter(role=request.POST['role'])
-        if request.POST['age'] != '':
-            age = ProfileUser.objects.all().filter(age=request.POST['age'])
-        filter_all = ProfileUser.objects.all().filter(age=request.POST['age'], city=request.POST['city'], role=request.POST['role'])
+    model = ProfileUser
+    template_name = 'perepis/charts.html'
+    
+    def get_context_data(self, **kwargs):
+        profiles = ProfileUser.objects.all()
+        edu_count = 0
+        child_count = 0
+        married_count = 0
+        educations_degrees = 0
+        male_count = 0
+        female_count = 0
+        for item in profiles:
+            if item.education != 'Нет':
+                edu_count += 1
+            if item.child > 0:
+                child_count += 1
+            if item.in_relationship:
+                married_count += 1
+            if item.educations_degrees != 'Нет':
+                educations_degrees += 1
+            if item.sex == 'Муж':
+                male_count += 1
+            elif item.sex == 'Жен':
+                female_count += 1
 
-        content = {
-            'title': 'Личный кабинет',
-            'auth' : request.user.is_authenticated,
-            'city': city,
-            'role': role,
-            'age': age,
-            'filter_all': filter_all
+        context_charts = {
+            'edu_count': edu_count,
+            'child_count': child_count,
+            'married_count': married_count,
+            'educations_degrees': educations_degrees,
+            'male_count': male_count,
+            'female_count': female_count,
+            'city': ProfileUser.objects.get(pk=self.request.user.id).city,
+            'profile': ProfileUser.objects.get(pk=self.request.user.id)
         }
-        return render(request, 'perepis/lk.html', content)
+        return context_charts
 
+class badge(DetailView):
 
+    model = ProfileUser
+    template_name = 'perepis/badge.html'
+    context_object_name = 'profile'
 
-    # Словарь данных, которые передаються в email.verif.html
-    content = {
-        'title': 'Личный кабинет',
-        'auth' : request.user.is_authenticated,
-        'city': city,
-        'role': role,
-        'age': age
-    }
-    return render(request, 'perepis/lk.html', content)
+class tree_view(DetailView):
+
+    model = ProfileUser
+    template_name = 'perepis/tree_view.html'
+    context_object_name = 'profile'
+
+def handle_404(request, exception):
+    return render(request, 'perepis/404.html')
+
+def handle_500(exception):
+    return render(request, 'perepis/500.html')
 
 
 def auth_menu_bar(request, context):

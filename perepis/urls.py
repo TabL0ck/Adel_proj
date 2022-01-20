@@ -8,5 +8,8 @@ urlpatterns = [
     path(r'^email_verif/$', views.email_verif, name="email_verif"),
     path('login', views.log_in, name="login"),
     path('logout', views.log_out, name="logout"),
-    path('lk', views.lk, name="lk")
+    path('<int:pk>/lk', views.lk.as_view(), name="lk"),
+    path('<int:pk>/charts', views.charts.as_view(), name="charts"),
+    path('<int:pk>/badge', views.badge.as_view(), name="badge"),
+    path('<int:pk>/tree_view', views.tree_view.as_view(), name="tree_view")
 ]

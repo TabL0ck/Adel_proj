@@ -11,13 +11,13 @@ def registration_email(reciever, csrfmiddlewaretoken):
                         <body>
                                 <h1>Регистрация</h1>
                                 <h3>Для перехода на страницу регистрации перейдите по ссылке: </h3>
-                                <h3><a href="http://127.0.0.1:8000/^email_verif/$?csrfmiddlewaretoken={csrfmiddlewaretoken}&email={reciever.replace('@', '%40')}">Зарегестрироваться</a></h3>
+                                <h3><a href="http://192.168.0.102:8000/^email_verif/$?csrfmiddlewaretoken={csrfmiddlewaretoken}&email={reciever.replace('@', '%40')}">Зарегестрироваться</a></h3>
                                 </p>
                         </body>
                 </html>
                 """
         msg = MIMEText(html,'html')
-        msg['Subject'] = "Регистрация на портале АдельПродакшн"
+        msg['Subject'] = "Регистрация на портале переписи населения"
         msg['From'] = EMAIL_LOGIN
         msg['To'] = reciever
 

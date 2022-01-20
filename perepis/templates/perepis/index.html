@@ -14,13 +14,16 @@
                 <li><a href="#testimonials">Рекомендации</a></li>
                 <li><a href="{% url 'write_review' %}">Написать отзывы</a></li>
 				{% if auth %}
-                	<li><a href="{% url 'lk' %}" class="btn-nav-line"><span>Личный кабинет</span></a></li>
+                	<li><a href="{% url 'lk' user_pk %}" class="btn-nav-line"><span>Личный кабинет</span></a></li>
 					<li><a href="{% url 'logout' %}" class="btn-nav-line"><span>Выйти</span></a></li>
 				{% else %}
 				<li><a href="{% url 'login' %}" class="btn-nav-line"><span>Войти</span></a></li>
 				{% endif %}
         </li>
     </ul>
+	<a class='menu-trigger'>
+		<span>Меню</span>
+	</a>
     <!-- ***** Меню конец ***** -->
 {% endblock %}
 <!-- Основной контент сайтека -->
@@ -46,8 +49,8 @@
 						<form method="get" action="{% url 'index' %}" enctype="multipart/form-data">
 							<!-- csrf токен, хз зачем, но он нужен, без него не сработает -->
 							{% csrf_token %}
-							<h1>Простая онлайн-система переписи населения</h1>
-							<p>В отличие от традиционных систем записи, которые требуют несколько месяцев изучения и являются дорогостоящими. Перепись населения АдельПродакшен занимает всего 10 минут.</p>
+							<h1>Онлайн-ситема переписи населения</h1>
+							<p>Зарегистрируйтесь и получите доступ к прохождению переписи населения, визуализации данных и сравнительной статистике.Узнайте насколько мы похожи!</p>
 							<div class="email-box">
 								<div class="input">
 									<!-- Форма ввода email'a -->

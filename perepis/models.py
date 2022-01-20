@@ -44,9 +44,16 @@ class ProfileUser(User):
 
     avatar = models.ImageField('Аватарка', default='perepis/no_avatar.png',upload_to=user_directory_path)
     role = models.CharField('Образование', max_length=64 , default='Студент')
+    education = models.CharField(default='Нет', max_length=64)
     age = models.PositiveIntegerField('Возраст', default=16)
-    city = models.CharField(default='Севастополь', max_length=300)
-    filename = None
+    city = models.CharField(default='Севастополь', max_length=100)
+    hometown = models.CharField(default='Севастополь', max_length=100)
+    university = models.CharField(default='Севастопольский Государственный Университет', max_length=100)
+    phone_number = models.CharField(default='+7(999)000111', max_length=100)
+    child = models.PositiveSmallIntegerField(default=0)
+    in_relationship = models.BooleanField(default=False)
+    educations_degrees = models.CharField(default='Нет', max_length=100)
+    sex = models.CharField(default='Муж', max_length=5)
 
     # Запись данных в базу данных, реализуется в основном здесь
     def save(self):
@@ -67,7 +74,7 @@ class Reviews(models.Model):
     # Вот именно так будет выводиться объект модели, при обращении к ней
     def __str__(self):
 
-        return self.username
+        return self.user.username
 
     # Отображение в панели админа
     class Meta:

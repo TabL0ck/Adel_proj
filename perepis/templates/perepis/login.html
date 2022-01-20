@@ -1,70 +1,83 @@
-<!-- Подклкючение базового html дока -->
-{% extends 'perepis/base.html' %}
 <!-- Подключение статики -->
 {% load static %}
 
-<!-- Ввод названия вкладки title передается в views.py -->
-{% block title %} {{ title }} {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Responsive Admin Dashboard Template">
+        <meta name="keywords" content="admin,dashboard">
+        <meta name="author" content="stacks">
+        <!-- The above 6 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-{% block menu %}
-    <!-- ***** Меню начало ***** -->
-    <ul class="nav">
-        <li class="submenu">
-                <li><a href="#welcome">Начальная страница</a></li>
-                <li><a href="#features">Особенности</a></li>
-                <li><a href="#testimonials">Рекомендации</a></li>
-                <li><a href="{% url 'write_review' %}">Написать отзывы</a></li>
-                {% if auth %}
-                	<li><a href="{% url 'lk' %}" class="btn-nav-line"><span>Личный кабинет</span></a></li>
-                    <li><a href="{% url 'logout' %}" class="btn-nav-line"><span>Выйти</span></a></li>
-				{% else %}
-				    <li><a href="{% url 'login' %}" class="btn-nav-line"><span>Войти</span></a></li>
-				{% endif %}
-        </li>
-    </ul>
-    <!-- ***** Меню конец ***** -->
-{% endblock %}
+        <!-- Title -->
+        <title>{{ title }}</title>
 
-<!-- Основной контент сайтека -->
-{% block base_info %}
-	<!-- ***** Начало зоны приветствия ***** -->
-	<div class="welcome-area" id="welcome">
-		<!-- ***** Начало фонового изображения заголовка ***** -->
-		<div class="right-bg">
-			<img src="{% static 'perepis/img/photos/header.jpg' %}" class="img-fluid float-right" alt="">
-		</div>
-		<!-- ***** Конец фонового изображения заголовка ***** -->
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700,800&display=swap" rel="stylesheet">
+        <link href="{% static 'perepis/lk/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'perepis/lk/plugins/font-awesome/css/all.min.css' %}" rel="stylesheet">
+        <link href="{% static 'perepis/lk/plugins/perfectscroll/perfect-scrollbar.css' %}" rel="stylesheet">
 
-		<div class="header-bg">
-			<img src="{% static 'perepis/img/header-bg.svg' %}" class="img-fluid" alt="">
-		</div>
 
-		
-	</div>
-	<!-- ***** Конец Зоны приветствия ***** -->
+        <!-- Theme Styles -->
+        <link href="{% static 'perepis/lk/css/main.min.css' %}" rel="stylesheet">
+        <link href="{% static 'perepis/lk/css/custom.css' %}" rel="stylesheet">
 
-{% endblock %}
+    </head>
+    <body class="login-page">
+        <div class='loader'>
+            <div class='spinner-grow text-primary' role='status'>
+              <span class='sr-only'>Loading...</span>
+            </div>
+          </div>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12 col-lg-4">
+                    <div class="card login-box-container">
+                        <div class="card-body">
+                            <div class="authent-logo">
+                                <img src="{% static 'perepis/lk/images/logo@2x.png' %}" alt="">
+                            </div>
+                            <div class="authent-text">
+                                <p>Добро пожаловать!</p>
+                                <p>Пожалуйста, войдите в свою учетную запись.</p>
+                            </div>
 
-<!-- Если то основной, то это что? А ну это то что чуть пониже -->
-{% block content %}
-<!-- ***** Начало текста заголовка ***** -->
-<div class="header-text">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-5 col-md-12 col-sm-12">
-				<h1>Авторизация</h1>
-				<form method="post" action="" enctype="multipart/form-data">
-					{% csrf_token %}
-					<div class="email-box">
-						<div class="input">
-							{{ form.as_p }}
-						</div>
-					</div>
-					<button type="submit" class="btn btn-success">Отправить</button>
-				</form>
-			</div>
-		</div>
-	</div>	
-</div>
-<!-- ***** Конец текста заголовка ***** -->
-{% endblock %}
+                            <form method="post" action="{% url 'login' %}">
+								{% 	csrf_token %}
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                        {{ form.username }}
+                                        <label for="floatingInput">Логин</label>
+                                      </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-floating">
+                                        {{ form.password }}
+                                        <label for="floatingPassword">Пароль</label>
+                                      </div>
+                                </div>
+                                <button type="submit" class="btn btn-info m-b-xs">Войти</button>
+                            </form>
+                            <div class="authent-reg">
+                                <p>Не зарегистрирован? <a href="{% url 'index' %}">Создать учетную запись</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Javascripts -->
+        <script src="{% static 'perepis/lk/plugins/jquery/jquery-3.4.1.min.js' %}"></script>
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="{% static 'perepis/lk/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="https://unpkg.com/feather-icons"></script>
+        <script src="{% static 'perepis/lk/plugins/perfectscroll/perfect-scrollbar.min.js' %}"></script>
+        <script src="{% static 'perepis/lk/js/main.min.js' $%}"></script>
+    </body>
+</html>
