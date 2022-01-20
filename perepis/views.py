@@ -4,12 +4,13 @@ from django.contrib.auth.models import User
 from django.db.models import CharField
 from django.contrib import messages
 from django.http import HttpRequest
-from .models import Reviews, EmailAddr, ProfileUser
-from .forms import ReviewsForm, EmailReg, EmailReg_csrf, ProfileUser_reg, ProfileUser_login
+from .models import Reviews, EmailAddr, ProfileUser, Badge
+from .forms import ReviewsForm, EmailReg, EmailReg_csrf, ProfileUser_reg, ProfileUser_login, Badge_create, Tree_view_form
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from .module.email_bot import registration_email
 from django.core.serializers.json import DjangoJSONEncoder
+from .module.choices import Region_CHOICES_view
 import json
 
 # Обработчик перехода на index.html
@@ -158,35 +159,46 @@ class charts(DetailView):
     template_name = 'perepis/charts.html'
     
     def get_context_data(self, **kwargs):
-        profiles = ProfileUser.objects.all()
+
+        badge = Badge.objects.all()
         edu_count = 0
         child_count = 0
         married_count = 0
         educations_degrees = 0
-        male_count = 0
-        female_count = 0
-        for item in profiles:
-            if item.education != 'Нет':
-                edu_count += 1
-            if item.child > 0:
-                child_count += 1
-            if item.in_relationship:
-                married_count += 1
-            if item.educations_degrees != 'Нет':
-                educations_degrees += 1
-            if item.sex == 'Муж':
-                male_count += 1
-            elif item.sex == 'Жен':
-                female_count += 1
+        sex_count = 0
+        city = 'Не указан'
 
+        if self.request.method == 'GET':
+            form = Tree_view_form(self.request.GET)
+            if form.is_valid():
+                badge = Badge.objects.all().filter(region=form.cleaned_data['region'])
+                city = Region_CHOICES_view.get(form.cleaned_data['region'])
+                for item in badge:
+                    if form.cleaned_data['klass_11'] == item.klass_11 and item.klass_11 == True:
+                        edu_count += 1
+                    elif form.cleaned_data['PTU'] == item.PTU and item.PTU == True:
+                        edu_count += 1
+                    elif form.cleaned_data['VUZ'] == item.VUZ and item.VUZ == True:
+                        edu_count += 1
+                    if form.cleaned_data['married'] == item.married:
+                        married_count += 1
+                    if form.cleaned_data['candidate_of_science'] == item.candidate_of_science and item.candidate_of_science == True:
+                        educations_degrees += 1
+                    elif form.cleaned_data['doctor_of_science'] == item.doctor_of_science and item.doctor_of_science == True:
+                        educations_degrees += 1
+                    if form.cleaned_data['child'] == item.child:
+                        child_count += 1
+                    if form.cleaned_data['sex'] == item.sex:
+                        sex_count += 1
+            else:
+                return redirect('tree_view')
         context_charts = {
             'edu_count': edu_count,
             'child_count': child_count,
             'married_count': married_count,
             'educations_degrees': educations_degrees,
-            'male_count': male_count,
-            'female_count': female_count,
-            'city': ProfileUser.objects.get(pk=self.request.user.id).city,
+            'sex_count': sex_count,
+            'city': city,
             'profile': ProfileUser.objects.get(pk=self.request.user.id)
         }
         return context_charts
@@ -196,12 +208,44 @@ class badge(DetailView):
     model = ProfileUser
     template_name = 'perepis/badge.html'
     context_object_name = 'profile'
+    
+    def post(self, request, *args, **kwargs):
+        form = Badge_create(request.POST)
+        if form.is_valid():
+            form.save()
+            context_badge = {
+                'profile': ProfileUser.objects.get(pk=self.request.user.id),
+                'form': Badge_create()
+            }   
+            return self.render_to_response(context_badge)
+        else:
+            print(form.errors)
+            context_badge = {
+                'profile': ProfileUser.objects.get(pk=self.request.user.id),
+                'form': Badge_create()
+            }
+            return self.render_to_response(context_badge)
+
+    def get_context_data(self, **kwargs):
+
+        context_badge = {
+            'profile': ProfileUser.objects.get(pk=self.request.user.id),
+            'form': Badge_create()
+        }
+        return context_badge
 
 class tree_view(DetailView):
 
     model = ProfileUser
     template_name = 'perepis/tree_view.html'
     context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context_badge = {
+            'profile': ProfileUser.objects.get(pk=self.request.user.id),
+            'form': Tree_view_form()
+        }
+        return context_badge
 
 def handle_404(request, exception):
     return render(request, 'perepis/404.html')

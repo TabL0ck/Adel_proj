@@ -1,0 +1,166 @@
+{% extends 'perepis/base_lk.html' %}
+{% load static %}
+{% block content %}
+    <!-- Форма переписи населения  -->
+    <div class="page-content">
+        <div class="main-wrapper">
+          <div class="row">
+            <!-- Эмаил адрес  -->
+              <div class="col">
+                  <div class="card">
+                      <div class="card-body">
+                          <h1 class="card-title "><strong><h1>Форма Переписи населения</h1></strong></h1>
+                          <p class="card-description">Заполните форму для всероссийской статистики.</p>
+                          <form>
+                              <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Email адрес</label>
+                                {{ form.email }}
+                                <div id="emailHelp" class="form-text">На этот адрес придет подтверждение.</div>
+                              </div>
+                            </form>
+                      </div>
+                  </div>
+              </div>
+            <!-- Эмаил адрес конец  -->
+
+            <!-- Пол и ФИО  -->
+              <div class="row">
+                  <div class="col">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Ваши данные</h5>
+
+                              <div class="row">
+                                  <div class="col">
+                                    {{ form.last_name }}
+                                  </div>
+                                  <div class="col">
+                                    {{ form.first_name }}
+                                  </div>
+                                </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Пол</h5>
+                              {% for radio in form.sex %}
+                                <div class="form-check">
+                                  {{ radio.choice_label }}
+                                  {{ radio.tag }}
+                                </div>
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            <!-- Пол и ФИО конец -->
+
+            <!-- Образование СП УС  -->
+              <div class="row">
+                  <div class="col">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Образование</h5>
+                                <div class="form-check form-switch">
+                                  {{ form.klass_11 }}
+                                  <label class="form-check-label" for="flexSwitchCheckDefault1">Общее образование</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                  {{ form.PTU }}
+                                  <label class="form-check-label" for="flexSwitchCheck2">Профессиональное образование</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                  {{ form.VUZ }}
+                                  <label class="form-check-label" for="flexSwitchCheck3">Дополнительное образование</label>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="col">
+                          <div class="card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Семейное положение</h5>
+                                    {% for radio in form.married %}
+                                      <div class="form-check">
+                                        {{ radio.choice_label }}
+                                        {{ radio.tag }}
+                                      </div>
+                                    {% endfor %}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col">
+                        <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Ученые степени</h5>
+                                <div class="form-check form-switch">
+                                  {{ form.candidate_of_science }}
+                                  <label class="form-check-label" for="flexSwitchCheckDefault">Кандидат наук</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                  {{ form.doctor_of_science }}
+                                  <label class="form-check-label" for="flexSwitchCheckDefault">Доктор наук</label>
+                                </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                <!-- Образование СП УС конец  -->
+                  <div class="row">
+                    <div class="col">
+                        <div class="card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Дети</h5>
+                                  {{ form.child }}
+                              </div>
+                              <div class="card-body">
+                                  <h5 class="card-title">Регион</h5>
+                                  {{ form.region }}
+                              </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col">
+                          <div class="card col-md-8 mx-auto">
+                              <div class="card-body">
+                                  <h1 >Уже закончили?</h1>
+                                  <p class="card-description">Обязательно проверьте все свои данные</p>
+                                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Готово
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                  <div class="modal-content">
+                  <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Подтверждение</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                  Готовы закончить заполнение?
+                  </div>
+                  <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                  <button type="submit" class="btn btn-primary">Сохранить и отправить</button>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+            </div>
+
+          </div>
+
+        </div>
+        <!-- Форма переписи населения конец -->
+{% endblock %}

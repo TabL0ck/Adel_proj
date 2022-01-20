@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 from .module.img_crop import crop_img_to_review
 from .module.email_bot import registration_email
-from .module.city_conf import CHOICES
+from .module.choices import *
 
 
 # Функция возвращающая полный путь к файлу с аватаркой
@@ -15,7 +15,7 @@ def user_directory_path(instance,filename):
 class EmailAddr(models.Model):
 
     # Email, на который придет письмо
-    email = models.EmailField('E-mail адресс')
+    email = models.EmailField('E-mail')
     csrfmiddlewaretoken = models.CharField('CSRF токен', max_length=250, default='a')
 
     # Вот именно так будет выводиться объект модели, при обращении к ней
@@ -74,7 +74,7 @@ class Reviews(models.Model):
     # Вот именно так будет выводиться объект модели, при обращении к ней
     def __str__(self):
 
-        return self.user.username
+        return self.text
 
     # Отображение в панели админа
     class Meta:
@@ -82,3 +82,18 @@ class Reviews(models.Model):
         verbose_name = 'Review'
         # Множественное число
         verbose_name_plural = 'Rewiews'
+
+class Badge(models.Model):
+
+    email = models.EmailField('E-mail')
+    first_name = models.CharField('Имя', max_length=64)
+    last_name = models.CharField('Фамилия', max_length=64)
+    sex = models.CharField('Пол', choices=Sex_CHOICES, max_length=8, default='male')
+    klass_11 = models.BooleanField('Среднее общее образование', default=False)
+    PTU = models.BooleanField('Среднее профессиональное обраование', default=False)
+    VUZ = models.BooleanField('Высшее профессиональное образование', default=False)
+    married = models.CharField('Семейное положение', choices=Married_CHOICES, default="no_married", max_length=64)
+    candidate_of_science = models.BooleanField('Кандидат наук', default=False)
+    doctor_of_science = models.BooleanField('Доктор наук', default=False)
+    child = models.CharField('Дети', choices=Child_CHOICES, default='no', max_length=64)
+    region = models.CharField('Регион', choices=Region_CHOICES, default='84', max_length=64)

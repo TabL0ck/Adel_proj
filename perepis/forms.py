@@ -1,7 +1,8 @@
-from .models import Reviews, EmailAddr, ProfileUser
+from .models import Reviews, EmailAddr, ProfileUser, Badge
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm, TextInput, Textarea, EmailInput, PasswordInput, CharField, CheckboxInput, BooleanField
+from django.forms import ModelForm, TextInput, Textarea, EmailInput, PasswordInput, CharField, CheckboxInput, BooleanField, RadioSelect, Select
+from .module.choices import *
 
 # Форма отзывов 
 class ReviewsForm(ModelForm):
@@ -121,4 +122,124 @@ class ProfileUser_login(ModelForm):
                 'id' : 'floatingPassword',
                 'placeholder' : 'Password'
             })       
+        }
+
+class Badge_create(ModelForm):
+    class Meta:
+        model = Badge
+        fields = ['email','first_name','last_name','sex','klass_11','PTU','VUZ','married','candidate_of_science','doctor_of_science','child','region']
+
+        widgets = {
+            'email': EmailInput(attrs={
+                'type': 'email',
+                'class': 'form-control',
+                'id': 'exampleInputEmail1',
+                'aria-describedby': 'emailHelp'
+            }),
+            'first_name': TextInput(attrs={
+                'type': 'text',
+                'class': 'form-control',
+                'placeholder': 'Имя',
+                'aria-label': 'Имя'
+            }),
+            'last_name': TextInput(attrs={
+                'type': 'text',
+                'class': 'form-control',
+                'placeholder': 'Фамилия',
+                'aria-label': 'Фамилия'
+            }),
+            'sex': RadioSelect(attrs={
+                'class': 'form-check-input',
+                'type': 'radio',
+                'name': 'flexRadioDefault1',
+                'id': 'flexRadioDefault2'
+            } , choices=Sex_CHOICES),
+            'klass_11': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault1'
+            }),
+            'PTU': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault2'
+            }),
+            'VUZ': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault3'
+            }),
+            'married': RadioSelect(attrs={
+                'class': 'form-check-input',
+                'type': 'radio',
+                'name': 'flexRadioDefault3',
+                'id': 'flexRadioDefault2'
+            } , choices=Married_CHOICES),
+            'candidate_of_science': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault'
+            }),
+            'doctor_of_science': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault'
+            }),
+            'child': Select(attrs={
+                'class': 'form-select'
+            }),
+            'region': Select(attrs={
+                'class': 'form-select'
+            })
+        }
+
+class Tree_view_form(ModelForm):
+    class Meta:
+        model = Badge
+        fields = ['sex','klass_11','PTU','VUZ','married','candidate_of_science','doctor_of_science','child','region']
+
+        widgets = {
+            'sex': RadioSelect(attrs={
+                'class': 'form-check-input',
+                'type': 'radio',
+                'name': 'flexRadioDefault1',
+                'id': 'flexRadioDefault2'
+            } , choices=Sex_CHOICES),
+            'klass_11': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault1'
+            }),
+            'PTU': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault2'
+            }),
+            'VUZ': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault3'
+            }),
+            'married': RadioSelect(attrs={
+                'class': 'form-check-input',
+                'type': 'radio',
+                'name': 'flexRadioDefault3',
+                'id': 'flexRadioDefault2'
+            } , choices=Married_CHOICES),
+            'candidate_of_science': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault'
+            }),
+            'doctor_of_science': CheckboxInput(attrs={
+                'class': 'form-check-input',
+                'type': 'checkbox',
+                'id': 'flexSwitchCheckDefault'
+            }),
+            'child': Select(attrs={
+                'class': 'form-select'
+            }),
+            'region': Select(attrs={
+                'class': 'form-select'
+            })
         }
